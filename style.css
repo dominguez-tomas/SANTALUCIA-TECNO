@@ -1,0 +1,24 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.posicionar_abajo{
+    position: absolute;
+
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.text-center{
+    background-color: blueviolet;
+}
+
+.flexible{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 0 0 0 !important;
+}
