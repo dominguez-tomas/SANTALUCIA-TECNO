@@ -58,9 +58,9 @@ class Producto {
 class Carrito {
     constructor() {
         this.listaCarrito = []
-        this.contenedor_carrito = document.getElementById('contenedor_carrito')
+        this.contenedorCarrito = document.getElementById('contenedorCarrito')
         this.total = document.getElementById('total')
-        this.finalizar_compra = document.getElementById("finalizar_compra")
+        this.finalizarCompra = document.getElementById("finalizarCompra")
         this.keyStorage = "listaCarrito"
     }
 
@@ -102,35 +102,35 @@ class Carrito {
     }
 
     limpiarContenedorCarrito() {
-        this.contenedor_carrito.innerHTML = ""
+        this.contenedorCarrito.innerHTML = ""
     }
 
     mostrarProductos() {
         this.limpiarContenedorCarrito()
 
         this.listaCarrito.forEach(producto => {
-            contenedor_carrito.innerHTML += producto.descripcionHTMLCarrito()
+            contenedorCarrito.innerHTML += producto.descripcionHTMLCarrito()
         })
 
         //Botón "Eliminar producto del carrito"
         this.listaCarrito.forEach(producto => {
 
-            let btn_eliminar = document.getElementById(`eliminar-${producto.id}`)
-            let btn_plus = document.getElementById(`plus-${producto.id}`)
-            let btn_minus = document.getElementById(`minus-${producto.id}`)
+            let btnEliminar = document.getElementById(`eliminar-${producto.id}`)
+            let btnPlus = document.getElementById(`plus-${producto.id}`)
+            let btnMinus = document.getElementById(`minus-${producto.id}`)
 
-            btn_eliminar.addEventListener("click", () => {
+            btnEliminar.addEventListener("click", () => {
                 this.eliminar(producto)
                 this.guardarEnStorage()
                 this.mostrarProductos()
             })
 
-            btn_plus.addEventListener("click", () => {
+            btnPlus.addEventListener("click", () => {
                 producto.aumentarCantidad()
                 this.mostrarProductos()
             })
 
-            btn_minus.addEventListener("click", () => {
+            btnMinus.addEventListener("click", () => {
                 if (producto.disminuirCantidad()) {
                     this.mostrarProductos()
                 }
@@ -138,18 +138,18 @@ class Carrito {
 
         })
 
-        total.innerHTML = "Precio Total: $" + this.calcular_total()
+        total.innerHTML = "Precio Total: $" + this.calcularTotal()
     }
 
-    calcular_total() {
+    calcularTotal() {
         return this.listaCarrito.reduce((acumulador, producto) => acumulador + producto.precio * producto.cantidad, 0)
     }
 
     eventoFinalizarCompra() {
-        this.finalizar_compra.addEventListener("click", () => {
+        this.finalizarCompra.addEventListener("click", () => {
 
             if (this.listaCarrito.length > 0) {
-                let precio_total = this.calcular_total()
+                let precioTotal = this.calcularTotal()
                 //limpiar el carrito
                 this.listaCarrito = []
                 //limpiar el storage
@@ -160,7 +160,7 @@ class Carrito {
                 Swal.fire({
                     position: 'center',
                     icon: 'success',
-                    title: `¡La compra se registró con éxito por un total de:  $${precio_total}`,
+                    title: `¡La compra se registró con éxito por un total de:  $${precioTotal}`,
                     text: "Para más detalle, revise su e-mail",
                     timer: 3000
                   })
@@ -200,9 +200,9 @@ class ProductoController {
     }
 
     mostrarProductos() {
-        let contenedor_productos = document.getElementById("contenedor_productos")
+        let contenedorProductos = document.getElementById("contenedorProductos")
         this.listaProductos.forEach(producto => {
-            contenedor_productos.innerHTML += producto.descripcionHTML()
+            contenedorProductos.innerHTML += producto.descripcionHTML()
         })
 
         //Botón "añadir al carrito"
@@ -217,7 +217,7 @@ class ProductoController {
                 Toastify({
                     avatar: `${producto.img}`,
                     text: `¡${producto.nombre} añadido!`,
-                    duration: 1000,
+                    duration: 1500,
                     gravity: "bottom",
                     position: "right", 
 
@@ -232,6 +232,6 @@ carrito.levantarStorage()
 carrito.mostrarProductos()
 carrito.eventoFinalizarCompra()
 
-const controlador_productos = new ProductoController()
-controlador_productos.cargarProductos()
-controlador_productos.mostrarProductos()
+const controladorProductos = new ProductoController()
+controladorProductos.cargarProductos()
+controladorProductos.mostrarProductos()
