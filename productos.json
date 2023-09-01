@@ -1,0 +1,36 @@
+[
+    {
+        "id": 1,
+        "nombre": "ryzen 3",
+        "precio": 100000,
+        "descripcion": "un procesador de gama baja",
+        "img": "https://www.venex.com.ar/products_images/1655397661_dfgdfg.jpg"
+    },
+
+    {
+    "id": 2,
+    "nombre": "ryzen 5",
+    "precio": 150000,
+    "descripcion": "un procesador de gama media",
+    "img": "https://m.media-amazon.com/images/I/51f2hkWjTlL.__AC_SX300_SY300_QL70_ML2_.jpg"
+},
+
+
+    {
+"id": 3,
+"nombre": "ryzen 7",
+"precio": 300000,
+"descripcion": "un procesador de gama media - alta",
+"img": "https://m.media-amazon.com/images/I/51D3DrDmwkL.__AC_SX300_SY300_QL70_ML2_.jpg"
+},
+
+
+    {
+"id": 4,
+"nombre": "ryzen 9",
+"precio": 500000,
+"descripcion": "un procesador de gama alta",
+"img": "https://m.media-amazon.com/images/I/616VM20+AzL._AC_SX300_SY300_.jpg"
+}
+
+]

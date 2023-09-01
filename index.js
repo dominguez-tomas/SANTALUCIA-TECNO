@@ -33,7 +33,7 @@ class Producto {
                     <div class="card-body">
                         <h5 class="card-title">${this.nombre}</h5>
                         <p class="card-text">Cantidad: <button class="btn btn-dark" id="minus-${this.id}"><i class="fa-solid fa-minus fa-1x"></i></button>${this.cantidad}<button class="btn btn-dark" id="plus-${this.id}"><i class="fa-solid fa-plus"></i></button> </p>
-                        <p class="card-text">Precio: $${this.precio}</p>
+                        <p class="card-precio">Precio: $${this.precio}</p>
                         <button class="btn btn-danger" id="eliminar-${this.id}"><i class="fa-solid fa-trash"></i></button>
                     </div>
                 </div>
@@ -60,7 +60,7 @@ class Carrito {
         this.listaCarrito = []
         this.contenedorCarrito = document.getElementById('contenedorCarrito')
         this.total = document.getElementById('total')
-        this.finalizarCompra = document.getElementById("finalizarCompra")
+        this.FinalizarCompra = document.getElementById("FinalizarCompra")
         this.keyStorage = "listaCarrito"
     }
 
@@ -146,7 +146,7 @@ class Carrito {
     }
 
     eventoFinalizarCompra() {
-        this.finalizarCompra.addEventListener("click", () => {
+        this.FinalizarCompra.addEventListener("click", () => {
 
             if (this.listaCarrito.length > 0) {
                 let precioTotal = this.calcularTotal()
@@ -163,7 +163,7 @@ class Carrito {
                     title: `¡La compra se registró con éxito por un total de:  $${precioTotal}`,
                     text: "Para más detalle, revise su e-mail",
                     timer: 3000
-                  })
+                })
 
             } else {
                 Swal.fire({
@@ -171,7 +171,7 @@ class Carrito {
                     icon: 'warning',
                     title: '¡Debes añadir productos para realizar la compra!',
                     timer: 3000
-                  })
+                })
             }
         })
     }
@@ -182,18 +182,22 @@ class ProductoController {
         this.listaProductos = []
     }
 
-    cargarProductos() {
-        //Productos
-        const p1 = new Producto({ id: 1, nombre: "ryzen 3", precio: 100000, descripcion: "un procesador de gama baja", img: "https://img.xentra.com.mx/xentra_jbsystem/img/productos/YD3200C5FHBOX/YD3200C5FHBOX_842_31_07_21_06_39.webp" })
-        const p2 = new Producto({ id: 2, nombre: "ryzen 5", precio: 150000, descripcion: "un procesador de gama media", img: "https://m.media-amazon.com/images/I/51f2hkWjTlL.__AC_SX300_SY300_QL70_ML2_.jpg" })
-        const p3 = new Producto({ id: 3, nombre: "ryzen 7", precio: 300000, descripcion: "un procesador de gama media - alta", img: "https://m.media-amazon.com/images/I/51D3DrDmwkL.__AC_SX300_SY300_QL70_ML2_.jpg" })
-        const p4 = new Producto({ id: 4, nombre: "ryzen 9", precio: 500000, descripcion: "un procesador de gama alta", img: "https://m.media-amazon.com/images/I/616VM20+AzL._AC_SX300_SY300_.jpg" })
+    async cargarProductos() {
+        try {
+            const response = await fetch("productos.json");
+            const data = await response.json();
 
-        this.agregar(p1)
-        this.agregar(p2)
-        this.agregar(p3)
-        this.agregar(p4)
+            data.forEach((productoData) => {
+                const producto = new Producto(productoData);
+                this.agregar(producto);
+            });
+
+            this.mostrarProductos();
+        } catch (error) {
+            console.error('Error al cargar los productos:', error);
+        }
     }
+
 
     agregar(producto) {
         this.listaProductos.push(producto)
@@ -219,9 +223,9 @@ class ProductoController {
                     text: `¡${producto.nombre} añadido!`,
                     duration: 1500,
                     gravity: "bottom",
-                    position: "right", 
+                    position: "right",
 
-                  }).showToast();
+                }).showToast();
             })
         })
     }
@@ -234,4 +238,4 @@ carrito.eventoFinalizarCompra()
 
 const controladorProductos = new ProductoController()
 controladorProductos.cargarProductos()
-controladorProductos.mostrarProductos()
+controladorProductos.mostrarProductos();
